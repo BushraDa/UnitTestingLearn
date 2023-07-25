@@ -2,7 +2,7 @@
 {
     public interface IImageService
     {
-        string SaveImage(IFormFile file, int Id, string BaseFolder, string SubFolder);
+        string SaveImage(IFormFile file);
         void DeleteImage(IFormFile file);
     }
 }

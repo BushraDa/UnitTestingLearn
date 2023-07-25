@@ -17,21 +17,21 @@ namespace ECommerceAPI.BusinessLayer.Helpers
             throw new NotImplementedException();
         }
 
-        public string SaveImage(IFormFile file, int Id, string BaseFolder, string SubFolder)
+        public string SaveImage(IFormFile file)
         {
-            var ext = Path.GetExtension(file.FileName);
-            var filename = Id + ext;
+            var filename = file.FileName;
 
-            var MainPath = Path.Combine(_hostingEnvironment.ContentRootPath, BaseFolder, SubFolder);
+            var MainPath = Path.Combine(_hostingEnvironment.ContentRootPath, "Images//");
             if (!Directory.Exists(MainPath))
                 Directory.CreateDirectory(MainPath);
+
             var FullPath = Path.Combine(MainPath, filename);
             using (var stream = System.IO.File.Create(FullPath))
             {
                 file.CopyToAsync(stream);
             }
 
-            return filename;
+            return "Images//" + filename;
         }
     }
 }
