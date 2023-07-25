@@ -9,6 +9,6 @@ namespace UnitTestingLearn.DataLayer
             : base(options)
         { }
 
-        public DbSet<Category> Categories { set; get; };
+        public DbSet<Category> Categories { set; get; }
     }
 }
