@@ -25,14 +25,14 @@ namespace UnitTestingLearn.PresentationLayer.Controllers
         }
         // GET: api/<CategoryController>
         [HttpGet]
-        public IEnumerable<Category> Get()
+        public IEnumerable<Category> GetAll()
         {
             return _repository.GetAll();
         }
 
         // GET api/<CategoryController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> Get(int id)
+        public async Task<ActionResult<Category>> Get(long id)
         {
             var category = _repository.GetById(id);
             if (category != null)
@@ -43,14 +43,14 @@ namespace UnitTestingLearn.PresentationLayer.Controllers
 
         // POST api/<CategoryController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromForm] CategoryAddDto dto)
+        public async Task<ActionResult<Category>> Post([FromForm] CategoryAddDto dto)
         {
             if (dto.Image == null)
                 return BadRequest("Image Is Required");
 
-            _imageService.SaveImage(dto.Image);
-
             var category = _mapper.Map<Category>(dto);
+            category.Image = _imageService.SaveImage(dto.Image);
+
             _repository.Create(category);
 
             return Ok(category);
